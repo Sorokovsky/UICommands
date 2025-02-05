@@ -6,5 +6,5 @@ public interface ICommand
 
     public string Title { get; set; }
 
-    public void Invoke();
+    public void Invoke(ICommandsContext context);
 }
