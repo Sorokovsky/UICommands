@@ -6,8 +6,8 @@ internal class ExitCommand : BaseCommand
 {
     public override string Title { get; set; } = "Вийти.";
     
-    public override void Invoke(IExitable context)
+    public override void Invoke(IExitable exitor)
     {
-        context.Exit();
+        exitor.Exit();
     }
 }
