@@ -21,7 +21,7 @@ public class CommandsContext : ICommandsContext
         Add(new ExitCommand());
     }
     
-    public void Invoke(ICommandsContext _)
+    public void Invoke(IExitable _)
     {
         try
         {

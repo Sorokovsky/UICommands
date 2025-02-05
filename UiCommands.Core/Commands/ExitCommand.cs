@@ -2,11 +2,11 @@
 
 namespace UiCommands.Core.Commands;
 
-internal class ExitCommand : ICommand
+internal class ExitCommand : BaseCommand
 {
-    public int Number { get; set; }
-    public string Title { get; set; } = "Вийти.";
-    public void Invoke(ICommandsContext context)
+    public override string Title { get; set; } = "Вийти.";
+    
+    public override void Invoke(IExitable context)
     {
         context.Exit();
     }

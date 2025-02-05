@@ -1,8 +1,6 @@
 ﻿namespace UiCommands.Core.Interfaces;
 
-public interface ICommandsContext : ICommand
+public interface ICommandsContext : ICommand, IExitable
 {
-    public void Exit();
-
     public void Add(params ICommand[] commands);
 }
