@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiCommands.Core", "UiCommands.Core\UiCommands.Core.csproj", "{84BAA49E-34DD-4D95-A20C-234AC962E3F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiCommands.Tests", "UiCommands.Tests\UiCommands.Tests.csproj", "{37A86F0A-A90C-4717-BAE9-379FF8F923DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{84BAA49E-34DD-4D95-A20C-234AC962E3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84BAA49E-34DD-4D95-A20C-234AC962E3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84BAA49E-34DD-4D95-A20C-234AC962E3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A86F0A-A90C-4717-BAE9-379FF8F923DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A86F0A-A90C-4717-BAE9-379FF8F923DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A86F0A-A90C-4717-BAE9-379FF8F923DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A86F0A-A90C-4717-BAE9-379FF8F923DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
