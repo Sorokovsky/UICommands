@@ -6,5 +6,5 @@ public abstract class BaseCommand : ICommand
 {
     public int Number { get; set; }
     public abstract string Title { get; set; }
-    public abstract void Invoke(IExitable exitor);
+    public abstract void Invoke(IExitable? exitor);
 }

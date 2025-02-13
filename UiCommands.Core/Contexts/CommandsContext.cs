@@ -1,4 +1,5 @@
-﻿using UiCommands.Core.Commands;
+﻿using System.Text;
+using UiCommands.Core.Commands;
 using UiCommands.Core.Interfaces;
 
 namespace UiCommands.Core.Contexts;
@@ -19,9 +20,11 @@ public class CommandsContext : ICommandsContext
     {
         Title = title;
         Add(new ExitCommand());
+        Console.InputEncoding = Encoding.UTF8;
+        Console.OutputEncoding = Encoding.UTF8;
     }
     
-    public void Invoke(IExitable _)
+    public void Invoke(IExitable? _ = null)
     {
         try
         {
@@ -29,7 +32,7 @@ public class CommandsContext : ICommandsContext
             while (_isExit == false)
             {
                 ChooseCommand().Invoke(this);
-                Console.Write("Натисніть кнопку щоб продовжити.");
+                Console.Write("Натисніть кнопку щоб продовжити...");
                 Console.ReadKey();
             }
         }
