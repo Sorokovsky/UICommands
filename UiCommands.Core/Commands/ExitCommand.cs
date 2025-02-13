@@ -8,6 +8,6 @@ internal class ExitCommand : BaseCommand
     
     public override void Invoke(IExitable? exitor)
     {
-        exitor.Exit();
+        exitor?.Exit();
     }
 }
