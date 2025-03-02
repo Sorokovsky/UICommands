@@ -13,19 +13,23 @@ public static class Choosing
         var hasMin = min != null;
         var hasMax = max != null;
         var hasConditions = hasMin || hasMax;
-        var maxText = hasMax ? $"меньше ніж {max}" : string.Empty;
-        var minText = hasMin ? $"більше за {min}" : string.Empty;
+        var maxText = hasMax ? $"меньше рівне ніж {max}" : string.Empty;
+        var minText = hasMin ? $"більше рівне за {min}" : string.Empty;
         var start = hasConditions ? "(" : string.Empty;
         var end = hasConditions ? ")" : string.Empty;
         var middle = hasMin && hasMax ? " та " : string.Empty;
-        var fullText = $"{name}{start}{minText}{middle}{maxText}{end}: ";
-        var isError = TryGetParseNumber(GetText(fullText), out var value);
-        while (isError)
+        var fullText = $"{name}{start}{minText}{middle}{maxText}{end}";
+        int value;
+        bool isError;
+        do
         {
-            Console.Write("Ви ввели не число, спробуйте ше: ");
-            isError = TryGetParseNumber(GetText(name), out value);
-        }
-
+            Console.Write($"Введіть {fullText}: ");
+            isError = TryGetParseNumber(Console.ReadLine() ?? string.Empty, out value) || (value < min || value > max);
+            if (isError)
+            {
+                Console.WriteLine("Ви ввели не правильнк значення, спробуйте ше.");
+            }
+        } while (isError);
         return value;
     }
 
