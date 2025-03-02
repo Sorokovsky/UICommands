@@ -1,12 +1,16 @@
-﻿using UiCommands.Core.Interfaces;
+﻿using UiCommands.Core.Commands;
+using UiCommands.Core.Interfaces;
+using UiCommands.Core.Selectors;
 
 namespace UiCommands.Core.Context;
 
 public sealed class CommandContext : ICommandContext
 {
+    private int _currentNumber;
+    
     private bool _canExit;
     
-    private readonly List<ICommand> _commands = [];
+    private readonly List<BaseCommand> _commands = [];
     
     public CommandContext(string title)
     {
@@ -17,10 +21,20 @@ public sealed class CommandContext : ICommandContext
     
     public int Number { get; set; }
     
-    public void Invoke()
+    public void Invoke(IExitable? exitable = null)
     {
         _canExit = false;
+        AppendCommands(new ExitCommand());
         Loop();
+    }
+
+    public void AppendCommands(params BaseCommand[] commands)
+    {
+        commands.ToList().ForEach(command =>
+        {
+            command.Number = _currentNumber++;
+            _commands.Add(command);
+        });
     }
 
     public void Exit()
@@ -30,6 +44,27 @@ public sealed class CommandContext : ICommandContext
 
     private void Loop()
     {
-        
+        try
+        {
+            while (_canExit is false)
+            {
+                ChooseCommand().Invoke(this);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Сталася помилка: \"{e.Message}\".");
+        }
+    }
+
+    private ICommand ChooseCommand()
+    {
+        return Choosing.GetFromList(
+            _commands,
+            Title,
+            item => item.ToString(),
+            int.Parse,
+            (first, second) => first == second.Number 
+        );
     }
 }

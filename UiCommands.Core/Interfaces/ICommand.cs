@@ -1,10 +1,10 @@
 ﻿namespace UiCommands.Core.Interfaces;
 
-public interface ICommand
+internal interface ICommand
 {
     public string Title { get; }
     
     public int Number { get; set; }
 
-    public void Invoke();
+    public void Invoke(IExitable? exitable = null);
 }

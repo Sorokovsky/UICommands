@@ -2,10 +2,41 @@
 
 public static class Choosing
 {
+    public delegate string TitleDelegate<in T>(T item);
+    
+    public delegate TK ParserDelegate<out TK>(string input);
+    
+    public delegate bool CompareDelegate<in TK, in T>(T first, TK second);
+    
     public static string GetText(string name)
     {
         Console.Write($"Введіть {name}: ");
         return Console.ReadLine() ?? string.Empty;
+    }
+
+    public static T GetFromList<T, TK>(
+        List<T> list,
+        string name,
+        TitleDelegate<T> titleDelegate,
+        ParserDelegate<TK> parserDelegate,
+        CompareDelegate<T, TK> compareDelegate
+    )
+    {
+        if (list.Count == 0) throw new Exception($"Список \"{name}\" пустий");
+        bool isError;
+        T? result = default(T);
+        do
+        {
+            Console.WriteLine($"Виберіть зі \"{name}\"");
+            list.Select(x => titleDelegate(x)).ToList().ForEach(Console.WriteLine);
+            Console.Write(">> ");
+            var value = parserDelegate(Console.ReadLine() ?? string.Empty);
+            result = list.FirstOrDefault(x => compareDelegate(value, x));
+            isError = result == null;
+            if (isError) Console.WriteLine("Відповідь не розпізнано.");
+        } while (isError);
+
+        return result!;
     }
 
     public static int GetNumber(string name, int? min, int? max)
