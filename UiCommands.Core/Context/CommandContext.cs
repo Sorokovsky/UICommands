@@ -1,4 +1,5 @@
-﻿using UiCommands.Core.Commands;
+﻿using System.Text;
+using UiCommands.Core.Commands;
 using UiCommands.Core.Interfaces;
 using UiCommands.Core.Selectors;
 
@@ -10,11 +11,17 @@ public sealed class CommandContext : ICommandContext
     
     private bool _canExit;
     
+    private readonly Encoding _encoding;
+    
+    private Encoding _currentInputEncoding;
+    private Encoding _currentOutputEncoding;
+    
     private readonly List<BaseCommand> _commands = [];
     
-    public CommandContext(string title)
+    public CommandContext(string title, Encoding encoding)
     {
         Title = title;
+        _encoding = encoding;
     }
 
     public string Title { get; }
@@ -44,6 +51,7 @@ public sealed class CommandContext : ICommandContext
 
     private void Loop()
     {
+        SetupEncoding();
         try
         {
             while (_canExit is false)
@@ -55,6 +63,7 @@ public sealed class CommandContext : ICommandContext
         {
             Console.WriteLine($"Сталася помилка: \"{e.Message}\".");
         }
+        ClearEncoding();
     }
 
     private ICommand ChooseCommand()
@@ -66,5 +75,19 @@ public sealed class CommandContext : ICommandContext
             int.Parse,
             (first, second) => first == second.Number 
         );
+    }
+
+    private void SetupEncoding()
+    {
+        _currentInputEncoding = Console.InputEncoding;
+        _currentOutputEncoding = Console.OutputEncoding;
+        Console.OutputEncoding = _encoding;
+        Console.InputEncoding = _encoding;
+    }
+
+    private void ClearEncoding()
+    {
+        Console.OutputEncoding = _currentOutputEncoding;
+        Console.InputEncoding = _currentInputEncoding; 
     }
 }
