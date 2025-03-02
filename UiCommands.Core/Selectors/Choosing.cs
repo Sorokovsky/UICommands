@@ -23,8 +23,9 @@ public static class Choosing
     )
     {
         if (list.Count == 0) throw new Exception($"Список \"{name}\" пустий");
+        if (list.Count == 1) return list.First();
         bool isError;
-        T? result = default(T);
+        T? result;
         do
         {
             Console.WriteLine($"Виберіть зі \"{name}\"");
