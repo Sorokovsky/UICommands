@@ -16,7 +16,7 @@ public sealed class CommandContext : ICommandContext
     private Encoding _currentInputEncoding;
     private Encoding _currentOutputEncoding;
     
-    private readonly List<BaseCommand> _commands = [];
+    private readonly List<ICommand> _commands = [];
     
     public CommandContext(string title, Encoding encoding)
     {
@@ -35,7 +35,7 @@ public sealed class CommandContext : ICommandContext
         Loop();
     }
 
-    public void AppendCommands(params BaseCommand[] commands)
+    public void AppendCommands(params ICommand[] commands)
     {
         commands.ToList().ForEach(command =>
         {

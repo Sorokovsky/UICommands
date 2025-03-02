@@ -1,6 +1,6 @@
 ﻿namespace UiCommands.Core.Interfaces;
 
-internal interface ICommand
+public interface ICommand
 {
     public string Title { get; }
     
