@@ -2,9 +2,9 @@
 
 public interface ICommand
 {
+    public string Title { get; }
+    
     public int Number { get; set; }
 
-    public string Title { get; set; }
-
-    public void Invoke(IExitable exitor);
+    public void Invoke();
 }
