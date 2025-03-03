@@ -13,8 +13,8 @@ public sealed class CommandContext : ICommandContext
     
     private readonly Encoding _encoding;
     
-    private Encoding _currentInputEncoding;
-    private Encoding _currentOutputEncoding;
+    private Encoding? _currentInputEncoding;
+    private Encoding? _currentOutputEncoding;
     
     private readonly List<ICommand> _commands = [];
     
@@ -87,7 +87,14 @@ public sealed class CommandContext : ICommandContext
 
     private void ClearEncoding()
     {
-        Console.OutputEncoding = _currentOutputEncoding;
-        Console.InputEncoding = _currentInputEncoding; 
+        if (_currentOutputEncoding is not null)
+        {
+            Console.OutputEncoding = _currentOutputEncoding;
+        }
+
+        if (_currentInputEncoding is not null)
+        {
+            Console.InputEncoding = _currentInputEncoding;
+        }
     }
 }
