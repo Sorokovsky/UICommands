@@ -71,7 +71,7 @@ public sealed class CommandContext : ICommandContext
         return Choosing.GetFromList(
             _commands,
             Title,
-            item => item.ToString(),
+            item => item.ToString() ?? string.Empty,
             int.Parse,
             (first, second) => first == second.Number 
         );
